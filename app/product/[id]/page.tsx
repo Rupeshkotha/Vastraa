@@ -10,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Heart, ShoppingBag, Star, Truck, Shield, RotateCcw } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
+import { useWishlist } from "@/hooks/use-wishlist"
 import { useToast } from "@/hooks/use-toast"
 
 // Mock product data
@@ -59,6 +60,7 @@ export default function ProductPage() {
   const [quantity, setQuantity] = useState(1)
 
   const { addItem } = useCart()
+  const { addItem: addToWishlist, removeItem: removeFromWishlist, isInWishlist } = useWishlist()
   const { toast } = useToast()
 
   useEffect(() => {
@@ -253,8 +255,43 @@ export default function ProductPage() {
                 Add to Cart
               </Button>
 
-              <Button size="lg" variant="outline" className="h-12">
-                <Heart className="h-5 w-5" />
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="h-12"
+                onClick={() => {
+                  try {
+                    const productId = `${product.id}`;
+                    if (isInWishlist && isInWishlist(productId)) {
+                      removeFromWishlist(productId);
+                      toast({
+                        title: "Removed from wishlist",
+                        description: `${product.name} has been removed from your wishlist.`,
+                      });
+                    } else {
+                      addToWishlist({
+                        id: productId,
+                        name: product.name,
+                        price: product.price,
+                        image: product.images[0],
+                        category: product.category,
+                      });
+                      toast({
+                        title: "Added to wishlist",
+                        description: `${product.name} has been added to your wishlist.`,
+                      });
+                    }
+                  } catch (error) {
+                    console.error("Error handling wishlist action:", error);
+                    toast({
+                      title: "Error",
+                      description: "There was an error updating your wishlist.",
+                      variant: "destructive",
+                    });
+                  }
+                }}
+              >
+                <Heart className={`h-5 w-5 ${isInWishlist && isInWishlist(`${product.id}`) ? 'fill-red-500 text-red-500' : ''}`} />
               </Button>
             </div>
 
