@@ -1,9 +1,8 @@
 import axios from "axios";
 import { BASE_URL } from "./apiPaths";
-import { useHandleLogout } from "@/hooks/logout";
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000, // 10 seconds
+  timeout: 30000, // 30 seconds
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
