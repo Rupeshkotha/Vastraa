@@ -16,7 +16,7 @@ interface WishlistButtonProps {
     color?: string
   }
   className?: string
-  size?: "sm" | "default" | "lg"
+  size?: "sm" | "default" | "lg" | "icon"
   variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
 }
 

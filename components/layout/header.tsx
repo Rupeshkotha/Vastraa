@@ -28,9 +28,9 @@ export default function Header() {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "Shop", href: "/shop" },
-    { name: "Men", href: "/shop?category=men" },
-    { name: "Women", href: "/shop?category=women" },
-    { name: "Accessories", href: "/shop?category=accessories" },
+    { name: "Door Curtains", href: "/shop?category=door-curtains" },
+    { name: "Bed Sheets", href: "/shop?category=bed-sheets" },
+    { name: "Sutings & Shirtings", href: "/shop?category=sutings-shirtings" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ]

@@ -10,85 +10,108 @@ import { useCart } from "@/hooks/use-cart"
 import { useToast } from "@/hooks/use-toast"
 import { WishlistButton } from "@/components/ui/wishlist-button"
 
-// Mock product data
+// Mock product data for home textiles
 const allProducts = [
   {
     id: 1,
-    name: "Premium Cotton T-Shirt",
-    price: 49.99,
-    originalPrice: 69.99,
+    name: "Elegant Door Curtain - Silk Blend",
+    price: 2499,
+    originalPrice: 2999,
     image: "/placeholder.svg?height=400&width=300",
-    category: "men",
-    size: ["S", "M", "L", "XL"],
-    color: "white",
+    category: "door-curtains",
+    subcategory: "",
+    size: ["Standard", "Large", "Extra Large"],
     rating: 4.8,
     reviews: 124,
   },
   {
     id: 2,
-    name: "Elegant Summer Dress",
-    price: 89.99,
-    originalPrice: 119.99,
+    name: "Premium Cotton Bed Sheet Set",
+    price: 1899,
+    originalPrice: 2299,
     image: "/placeholder.svg?height=400&width=300",
-    category: "women",
-    size: ["XS", "S", "M", "L"],
-    color: "blue",
+    category: "bed-sheets",
+    subcategory: "",
+    size: ["Single", "Double", "Queen", "King"],
     rating: 4.9,
     reviews: 89,
   },
   {
     id: 3,
-    name: "Classic Denim Jacket",
-    price: 129.99,
+    name: "Raymond Sutings Fabric",
+    price: 1299,
     image: "/placeholder.svg?height=400&width=300",
-    category: "unisex",
-    size: ["S", "M", "L", "XL", "XXL"],
-    color: "blue",
+    category: "sutings-shirtings",
+    subcategory: "raymond",
+    size: ["2.5m", "3m", "3.5m"],
     rating: 4.7,
     reviews: 156,
   },
   {
     id: 4,
-    name: "Luxury Leather Handbag",
-    price: 199.99,
-    originalPrice: 249.99,
+    name: "Lenin Club Premium Sutings",
+    price: 1599,
+    originalPrice: 1899,
     image: "/placeholder.svg?height=400&width=300",
-    category: "accessories",
-    size: ["One Size"],
-    color: "black",
+    category: "sutings-shirtings",
+    subcategory: "lenin-club",
+    size: ["2.5m", "3m", "3.5m"],
     rating: 4.9,
     reviews: 67,
   },
   {
     id: 5,
-    name: "Casual Sneakers",
-    price: 79.99,
+    name: "Arvind Cotton Shirting Material",
+    price: 899,
     image: "/placeholder.svg?height=400&width=300",
-    category: "accessories",
-    size: ["7", "8", "9", "10", "11"],
-    color: "white",
+    category: "sutings-shirtings",
+    subcategory: "arvind-cotton",
+    size: ["2m", "2.5m", "3m"],
     rating: 4.6,
     reviews: 203,
   },
   {
     id: 6,
-    name: "Silk Blouse",
-    price: 119.99,
+    name: "Luxury Door Curtain - Velvet",
+    price: 3499,
     image: "/placeholder.svg?height=400&width=300",
-    category: "women",
-    size: ["XS", "S", "M", "L", "XL"],
-    color: "pink",
+    category: "door-curtains",
+    subcategory: "",
+    size: ["Standard", "Large", "Extra Large"],
     rating: 4.8,
     reviews: 91,
+  },
+  {
+    id: 7,
+    name: "Egyptian Cotton Bed Sheet",
+    price: 2499,
+    originalPrice: 2899,
+    image: "/placeholder.svg?height=400&width=300",
+    category: "bed-sheets",
+    subcategory: "",
+    size: ["Double", "Queen", "King"],
+    rating: 4.9,
+    reviews: 145,
+  },
+  {
+    id: 8,
+    name: "Raymond Designer Sutings",
+    price: 1899,
+    image: "/placeholder.svg?height=400&width=300",
+    category: "sutings-shirtings",
+    subcategory: "raymond",
+    size: ["2.5m", "3m", "3.5m"],
+    rating: 4.7,
+    reviews: 78,
   },
 ]
 
 interface ProductGridProps {
   filters: {
     category: string
+    subcategory: string
     priceRange: number[]
     size: string
-    color: string
     sortBy: string
   }
 }
@@ -101,17 +124,19 @@ export default function ProductGrid({ filters }: ProductGridProps) {
   useEffect(() => {
     let filteredProducts = [...allProducts]
 
-    // Apply filters
+    // Apply category filter
     if (filters.category) {
       filteredProducts = filteredProducts.filter((product) => product.category === filters.category)
     }
 
-    if (filters.size) {
-      filteredProducts = filteredProducts.filter((product) => product.size.includes(filters.size))
+    // Apply subcategory filter (for sutings-shirtings)
+    if (filters.subcategory && filters.category === "sutings-shirtings") {
+      filteredProducts = filteredProducts.filter((product) => product.subcategory === filters.subcategory)
     }
 
-    if (filters.color) {
-      filteredProducts = filteredProducts.filter((product) => product.color === filters.color)
+    // Apply size filter
+    if (filters.size) {
+      filteredProducts = filteredProducts.filter((product) => product.size.includes(filters.size))
     }
 
     // Price range filter
@@ -157,6 +182,19 @@ export default function ProductGrid({ filters }: ProductGridProps) {
     })
   }
 
+  const getCategoryDisplayName = (category: string) => {
+    switch (category) {
+      case "door-curtains":
+        return "Door Curtains"
+      case "bed-sheets":
+        return "Bed Sheets"
+      case "sutings-shirtings":
+        return "Sutings and Shirtings"
+      default:
+        return category
+    }
+  }
+
   return (
     <div className="product-grid">
       <div className="flex justify-between items-center mb-6">
@@ -190,7 +228,6 @@ export default function ProductGrid({ filters }: ProductGridProps) {
                       price: product.price,
                       image: product.image,
                       size: product.size[0],
-                      color: product.color,
                     }}
                     size="icon"
                     variant="secondary"
@@ -211,8 +248,8 @@ export default function ProductGrid({ filters }: ProductGridProps) {
               </div>
 
               <div className="p-6">
-                <Badge variant="outline" className="mb-2 capitalize">
-                  {product.category}
+                <Badge variant="outline" className="mb-2">
+                  {getCategoryDisplayName(product.category)}
                 </Badge>
                 <Link href={`/product/${product.id}`}>
                   <h3 className="font-semibold text-lg text-gray-900 mb-2 hover:text-gray-700 transition-colors">
@@ -233,9 +270,9 @@ export default function ProductGrid({ filters }: ProductGridProps) {
                   <span className="text-sm text-gray-600">({product.reviews})</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xl font-bold text-gray-900">${product.price}</span>
+                  <span className="text-xl font-bold text-gray-900">₹{product.price}</span>
                   {product.originalPrice && (
-                    <span className="text-lg text-gray-500 line-through">${product.originalPrice}</span>
+                    <span className="text-lg text-gray-500 line-through">₹{product.originalPrice}</span>
                   )}
                 </div>
               </div>

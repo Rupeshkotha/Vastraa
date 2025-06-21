@@ -1,13 +1,24 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Playfair_Display, Poppins } from "next/font/google"
 import "./globals.css"
 import Header from "@/components/layout/header"
 import { CartProvider } from "@/contexts/cart-context"
 import { WishlistProvider } from "@/contexts/wishlist-context"
 import { Toaster } from "@/components/ui/toaster"
 
-const inter = Inter({ subsets: ["latin"] })
+const playfair = Playfair_Display({ 
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap"
+})
+
+const poppins = Poppins({ 
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
+  display: "swap"
+})
 
 export const metadata: Metadata = {
   title: "LUXE - Premium Fashion Store",
@@ -22,7 +33,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${playfair.variable} ${poppins.variable} font-sans`}>
         <WishlistProvider>
           <CartProvider>
             <Header />

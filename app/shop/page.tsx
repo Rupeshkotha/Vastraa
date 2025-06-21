@@ -14,6 +14,7 @@ gsap.registerPlugin(ScrollTrigger)
 export default function ShopPage() {
   const [filters, setFilters] = useState({
     category: "",
+    subcategory: "",
     priceRange: [0, 500],
     size: "",
     color: "",
@@ -45,7 +46,7 @@ export default function ShopPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="shop-header mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Shop Collection</h1>
-          <p className="text-xl text-gray-600">Discover our complete range of premium fashion</p>
+          <p className="text-xl text-gray-600">Discover our complete range of premium home textiles</p>
         </div>
 
         <div className="flex gap-8">
