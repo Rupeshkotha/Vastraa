@@ -9,11 +9,15 @@ import { Badge } from "@/components/ui/badge"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useCart } from "@/hooks/use-cart"
 import { useWishlist } from "@/hooks/use-wishlist"
+import { useAuth } from "@/contexts/auth-context"
+import { AuthDialog } from "@/components/auth/auth-dialog"
+import { UserDropdown } from "@/components/auth/user-dropdown"
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const { items: cartItems } = useCart()
   const { items: wishlistItems } = useWishlist()
+  const { user } = useAuth()
   const cartItemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
   const wishlistItemsCount = wishlistItems.length
 
@@ -78,11 +82,16 @@ export default function Header() {
               </Link>
             </Button>
 
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/account">
-                <User className="h-5 w-5" />
-              </Link>
-            </Button>
+            {/* Authentication */}
+            {user ? (
+              <UserDropdown />
+            ) : (
+              <AuthDialog>
+                <Button variant="ghost" size="icon">
+                  <User className="h-5 w-5" />
+                </Button>
+              </AuthDialog>
+            )}
 
             <Button variant="ghost" size="icon" className="relative" asChild>
               <Link href="/cart">
@@ -113,6 +122,22 @@ export default function Header() {
                       {item.name}
                     </Link>
                   ))}
+                  <div className="pt-4 border-t">
+                    {user ? (
+                      <div className="space-y-2">
+                        <p className="text-sm text-gray-600">Welcome, {user.name}</p>
+                        <Button variant="outline" size="sm" className="w-full" asChild>
+                          <Link href="/account">My Account</Link>
+                        </Button>
+                      </div>
+                    ) : (
+                      <AuthDialog>
+                        <Button variant="outline" size="sm" className="w-full">
+                          Sign In
+                        </Button>
+                      </AuthDialog>
+                    )}
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
