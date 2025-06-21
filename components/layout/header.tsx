@@ -8,11 +8,14 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useCart } from "@/hooks/use-cart"
+import { useWishlist } from "@/hooks/use-wishlist"
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const { items } = useCart()
-  const cartItemsCount = items.reduce((sum, item) => sum + item.quantity, 0)
+  const { items: cartItems } = useCart()
+  const { items: wishlistItems } = useWishlist()
+  const cartItemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
+  const wishlistItemsCount = wishlistItems.length
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,9 +67,14 @@ export default function Header() {
 
           {/* Actions */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="icon" asChild>
+            <Button variant="ghost" size="icon" className="relative" asChild>
               <Link href="/wishlist">
                 <Heart className="h-5 w-5" />
+                {wishlistItemsCount > 0 && (
+                  <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs">
+                    {wishlistItemsCount}
+                  </Badge>
+                )}
               </Link>
             </Button>
 

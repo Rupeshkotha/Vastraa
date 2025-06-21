@@ -5,9 +5,10 @@ import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Heart, ShoppingBag } from "lucide-react"
+import { ShoppingBag } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
 import { useToast } from "@/hooks/use-toast"
+import { WishlistButton } from "@/components/ui/wishlist-button"
 
 // Mock product data
 const allProducts = [
@@ -182,9 +183,19 @@ export default function ProductGrid({ filters }: ProductGridProps) {
                 </Link>
 
                 <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Button size="icon" variant="secondary" className="h-8 w-8">
-                    <Heart className="h-4 w-4" />
-                  </Button>
+                  <WishlistButton 
+                    product={{
+                      id: product.id.toString(),
+                      name: product.name,
+                      price: product.price,
+                      image: product.image,
+                      size: product.size[0],
+                      color: product.color,
+                    }}
+                    size="icon"
+                    variant="secondary"
+                    className="h-8 w-8"
+                  />
                   <Button
                     size="icon"
                     variant="secondary"
