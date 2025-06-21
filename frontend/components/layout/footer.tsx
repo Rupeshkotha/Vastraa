@@ -7,9 +7,9 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-2xl font-bold mb-4">LUXE</h3>
+            <h3 className="text-2xl font-bold mb-4">Sri Rajya Lakshmi Textiles</h3>
             <p className="text-gray-400 mb-6">
-              Premium fashion for the modern lifestyle. Discover quality, style, and comfort in every piece.
+              Your one-stop shop for premium home textiles. Quality and elegance for your home.
             </p>
             <div className="flex space-x-4">
               <Link href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -31,18 +31,18 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Shop</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <Link href="/shop?category=men" className="hover:text-white transition-colors">
-                  Men's Collection
+                <Link href="/shop?category=door-curtains" className="hover:text-white transition-colors">
+                  Door Curtains
                 </Link>
               </li>
               <li>
-                <Link href="/shop?category=women" className="hover:text-white transition-colors">
-                  Women's Collection
+                <Link href="/shop?category=bed-sheets" className="hover:text-white transition-colors">
+                  Bed Sheets
                 </Link>
               </li>
               <li>
-                <Link href="/shop?category=accessories" className="hover:text-white transition-colors">
-                  Accessories
+                <Link href="/shop?category=sutings-shirtings" className="hover:text-white transition-colors">
+                  Sutings & Shirtings
                 </Link>
               </li>
               <li>
@@ -72,8 +72,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/size-guide" className="hover:text-white transition-colors">
-                  Size Guide
+                <Link href="/faq" className="hover:text-white transition-colors">
+                  FAQs
                 </Link>
               </li>
             </ul>
@@ -85,11 +85,6 @@ export default function Footer() {
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
                   About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/careers" className="hover:text-white transition-colors">
-                  Careers
                 </Link>
               </li>
               <li>
@@ -107,7 +102,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 LUXE. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Sri Rajya Lakshmi Textiles. All rights reserved.</p>
         </div>
       </div>
     </footer>
