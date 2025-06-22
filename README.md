@@ -1,4 +1,4 @@
-# LUXE - Premium Fashion Store
+# Vastra - Premium Fashion Store
 
 A modern ecommerce clothing website built with Next.js, TypeScript, and Tailwind CSS.
 
